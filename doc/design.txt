@@ -1,33 +1,33 @@
-�������
+概念介绍
     
-    һ��������Ӧ�ó���Ӧ���ɸ߲�ε���ƣ�����������ơ�ҵ����ơ�����������
-    �������ֹ��ɡ�������ƻ���֮����ܹ������ֻ��������ʹ������һ������ļ���
-    �Ϳ������ɲ�ͬ�����Ӧ�ó���
+    一个完整的应用程序应该由高层次的设计，包括数据设计、业务设计、界面操作设计
+    三个部分构成。三个设计互相之间紧密关联但又互相独立。使用者用一组设计文件，
+    就可以生成不同种类的应用程序。
     
-    Ӧ�ó����������template��ɣ�һ��template����ѡ���ܹ�����Ӧ��technology��
-    ����������ʱ��Ҳ��������technology������ʹ��loaderװ�����ݣ���󴴽���һ��
-    ����Ҫ���Ӧ�ó���
+    应用程序的生成由template完成，一个template负责选定架构和相应的technology，
+    （具体生成时候也可以增加technology），并使用loader装入数据，最后创建出一个
+    符合要求的应用程序。
     
-    Ӧ�ó�����Է�Ϊ��㣬ÿһ����һ��������ܺ�һ�鼼����ɡ�������������
-    ֧��
+    应用程序可以分为多层，每一层由一个基本框架和一组技术组成。基本框架则可以
+    支持
     
     
-    ������ȫ�֡��ڵ㡢�⻧���û����Ự������ҳ�桢cookie���������桢�ֲ����档
-    ��ҳ�����Ҫ�أ�ģ�塢������ݡ�����״̬���¼��������㷨��
-    Ӧ�����Ҫ�أ��ܹ������̡���������
-    �̶��ṩ��Ҫ�أ�ģ�塢��񡢼ܹ���
-    ��Ŀ�ṩ��Ҫ�أ����ݡ�����״̬���¼��������㷨�����̡���������
+    作用域：全局、节点、租户、用户、会话、请求、页面、cookie、共享缓存、局部缓存。
+    单页面相关要素：模板、风格、数据、规则、状态、事件、服务、算法。
+    应用相关要素：架构、流程、数据流。
+    固定提供的要素：模板、风格、架构。
+    项目提供的要素：数据、规则、状态、事件、服务、算法、流程、数据流。
 
-�ļ���֯�ṹ
+文件组织结构
 
-ledom ����λ��
-   +-- bin ����λ��
+ledom 程序位置
+   +-- bin 运行位置
    |    |-- ledom.bat
    |    |-- ledom.sh
-   +-- lib ���ļ�λ�ã���Ÿ���jar�ļ�
-   +-- archetect �ܹ�ģ�壬�ṩ�����ṹ��ר��templates�̳�ʹ��
+   +-- lib 库文件位置，存放各种jar文件
+   +-- archetect 架构模板，提供基础结构，专由templates继承使用
    |    |-- springmvc 
-   +-- templates ��Ÿ���ģ�壬���ɸ��ֲ�ͬ��Ӧ�ó��򣬲�ͬģ�����Լ������Զ���
+   +-- templates 存放各种模板，生成各种不同的应用程序，不同模板有自己的语言定义
    |    |-- springmvc-jsp
    |    |-- tapestry
    |    |-- asp.net
@@ -36,18 +36,18 @@ ledom ����λ��
    |    |-- delphi
    |    |-- phonegap
    |    |-- iphone4
-   +-- styles  �����Ӿ����
-   +-- technologies ���ֵ�������ɵ�ģ��
+   +-- styles  各种视觉风格
+   +-- technologies 各种单项技术构成的模板
    |    |-- spring
    |    |-- webservice
    |    |-- shiro
    |    |-- jasig-cas
    |    |-- angularjs
    |    |-- bootstrap
-   +-- loaders ���ݵ�װ��ͽ���
-   |    |-- uiloader ��������ļ�װ��
-   |    |-- domainloader ҵ������ļ�װ��
-   |    |-- metaloader Ԫ��������ļ�װ��
+   +-- loaders 数据的装入和解析
+   |    |-- uiloader 界面设计文件装入
+   |    |-- domainloader 业务设计文件装入
+   |    |-- metaloader 元数据设计文件装入
    |    |-- 
    
    
