@@ -1,0 +1,100 @@
+package ledom.algorithm.raisingnet;
+
+import java.util.Collection;
+import java.util.List;
+
+public interface Graph<TNodeAttach, TLinkAttach> extends Cloneable {
+
+	/**
+	 * 根据 ID 获得节点的实例
+	 * @param id
+	 * @return
+	 */
+	public GraphNode<TNodeAttach, TLinkAttach> getNode(int id);
+	
+	/**
+	 * 判断节点是否在图中
+	 * @return
+	 */
+	public boolean contains(GraphNode<TNodeAttach, TLinkAttach> node);
+	
+	/**
+	 * 获取图中的所有节点列表
+	 * @return
+	 */
+	Collection<GraphNode<TNodeAttach, TLinkAttach>> getAllNodes();
+	
+	/**
+	 * 获取图中的所有连接线
+	 * @return
+	 */
+	Collection<GraphLink<TNodeAttach,TLinkAttach>> getAllLinks();
+	
+	/**
+	 * 在图中创建一个新的节点。
+	 * @param attach 节点的附加值
+	 * @return 节点实例
+	 */
+	GraphNode<TNodeAttach, TLinkAttach> createNode(TNodeAttach attach);
+	
+	/**
+	 * 创建节点之间的关联
+	 * @param from
+	 * @param to
+	 * @param dir
+	 * @param attach
+	 * @return 
+	 */
+	GraphLink<TNodeAttach,TLinkAttach> createLink(GraphNode<TNodeAttach, TLinkAttach> from, GraphNode<TNodeAttach, TLinkAttach> to, Direction dir, int distance);
+	
+	/**
+	 * 从图中移除节点
+	 * @param node
+	 */
+	void removeNode(GraphNode<TNodeAttach, TLinkAttach> node);
+	
+	/**
+	 * 从图中移除关联
+	 * @param link
+	 */
+	void removeLink(GraphLink<TNodeAttach,TLinkAttach> link);
+	
+	/**
+	 * 复制一个实例
+	 * @return
+	 */
+	Graph<TNodeAttach,TLinkAttach> clone();	
+
+	/**
+	 * 获取图的所有入口节点，要允许增加和删除
+	 * @return
+	 */
+	List<GraphNode<TNodeAttach, TLinkAttach>> getEntries();
+
+	/**
+	 * 获取图的所有出口节点，允许增加和删除
+	 * @return
+	 */
+	List<GraphNode<TNodeAttach, TLinkAttach>> getExits();
+
+	/**
+	 * 设置唯一的入口节点，会清除原有的所有入口
+	 * @param node
+	 */
+	public void setEntrance(GraphNode<TNodeAttach, TLinkAttach> node);
+		
+	/**
+	 * 设置唯一的出口节点，会清除原有的所有出口
+	 * @param node
+	 */
+	public void setExit(GraphNode<TNodeAttach, TLinkAttach> node);
+
+	/**
+	 * 清除所有节点和关系的flag值
+	 * @param initValue
+	 */
+	public void clearAllFlags(int initValue);
+	
+
+
+}

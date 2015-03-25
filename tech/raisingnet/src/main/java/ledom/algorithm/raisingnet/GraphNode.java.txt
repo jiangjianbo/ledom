@@ -1,0 +1,78 @@
+package ledom.algorithm.raisingnet;
+
+import java.util.List;
+
+public interface GraphNode<TNodeAttach, TLinkAttach> {
+
+	/**
+	 * 获取隶属的图
+	 * @return
+	 */
+	Graph<TNodeAttach, TLinkAttach> getGraph();
+	
+	/**
+	 * 获取节点的id
+	 * @return
+	 */
+	public int getNodeId();
+	
+	/**
+	 * 获取发出的所有 link
+	 * @return 
+	 */
+	List<GraphLink<TNodeAttach, TLinkAttach>> getForwardLinks();
+	
+	/**
+	 * 获取接收的所有 link
+	 * @return
+	 */
+	List<GraphLink<TNodeAttach, TLinkAttach>> getBackwardLinks();
+	
+	/**
+	 * 获取附加值
+	 */
+	TNodeAttach getAttachment();
+
+	/**
+	 * 设置附加值
+	 * @param newVaue 要设置的新值
+	 * @return 设置前的旧值
+	 */
+	TNodeAttach setAttachment(TNodeAttach newValue);
+	
+	/**
+	 * 获取自定义标记值
+	 * @return
+	 */
+	int getFlag();
+	
+	/**
+	 * 设置自定义标记值
+	 * @param flag
+	 */
+	void setFlag(int flag);	
+
+	/**
+	 * 获取权重值
+	 * @return
+	 */
+	int getWeight();
+	
+	/**
+	 * 设置权重值
+	 * @param weight
+	 */
+	void setWeight(int weight);	
+	
+	/**
+	 * 获取临时值
+	 * @return
+	 */
+	int getTemp();
+	
+	/**
+	 * 设置临时值
+	 * @param value
+	 */
+	void setTemp(int value);	
+}

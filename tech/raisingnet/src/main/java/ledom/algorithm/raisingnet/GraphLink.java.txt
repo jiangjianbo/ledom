@@ -1,0 +1,69 @@
+package ledom.algorithm.raisingnet;
+
+public interface GraphLink<TNodeAttach,TLinkAttach> {
+	/**
+	 * 获取 link 的长度
+	 * @return
+	 */
+	int getDistance();
+	
+	/**
+	 * 设置 link 的长度
+	 * @param distance 新的距离值
+	 */
+	void setDistance(int distance);
+	
+	/**
+	 * 获取起点节点
+	 * @return
+	 */
+	GraphNode<TNodeAttach,TLinkAttach> getSource();
+	
+	/**
+	 * 获取终点节点
+	 * @return
+	 */
+	GraphNode<TNodeAttach,TLinkAttach> getDestination();
+	
+	/**
+	 * 获取关联的方向
+	 * @return
+	 */
+	Direction getDirection();
+	
+	/**
+	 * 获取附加值
+	 */
+	TLinkAttach getAttachment();
+
+	/**
+	 * 设置附加值
+	 * @param newVaue 要设置的新值
+	 * @return 设置前的旧值
+	 */
+	TLinkAttach setAttachment(TLinkAttach newValue);
+	
+	/**
+	 * 获取自定义标记值
+	 * @return
+	 */
+	int getFlag();
+	
+	/**
+	 * 设置自定义标记值
+	 * @param flag
+	 */
+	void setFlag(int flag);
+	
+	/**
+	 * 获取临时值
+	 * @return
+	 */
+	int getTemp();
+	
+	/**
+	 * 设置临时值
+	 * @param value
+	 */
+	void setTemp(int value);
+}
