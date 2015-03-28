@@ -22,27 +22,27 @@ public class NGraphTest extends GraphTestUtil {
 
 	@Test
 	public void testSimpleGraph() {
-		NGraph<Long, Long> graph = genSimpleGraph();
+		NGraph<Long> graph = genSimpleGraph();
 
 		testSimpleGraph_common(graph);
-		graph = (NGraph<Long, Long>) graph.clone();
+		graph = (NGraph<Long>) graph.clone();
 		testSimpleGraph_common(graph);
 	
 	}
 
-	private void testSimpleGraph_common(NGraph<Long, Long> graph) {
+	private void testSimpleGraph_common(NGraph<Long> graph) {
 		assertEquals(4, graph.getAllNodes().size());
 
-		Iterator<NNode<Long, Long>> it = graph.getAllNodes().iterator();
+		Iterator<NNode<Long>> it = graph.getAllNodes().iterator();
 		for (int i = 1; i <= 4 && it.hasNext(); i++) {
-			NNode<Long, Long> nn = it.next();
+			NNode<Long> nn = it.next();
 			assertEquals(i, nn.getAttachment().longValue());
 			assertSame(graph, nn.getGraph());
 		}
 
-		Collection<NNode<Long, Long>> entries = graph.getEntries();
+		Collection<NNode<Long>> entries = graph.getEntries();
 
-		NNode<Long, Long> next, first = entries.iterator().next();
+		NNode<Long> next, first = entries.iterator().next();
 
 		assertEquals(first.getAttachment().longValue(), 1);
 		assertEquals(1, first.getForwardLinks().size());
@@ -71,19 +71,19 @@ public class NGraphTest extends GraphTestUtil {
 	
 	@Test
 	public void testCircleGraph() {
-		NGraph<Long, Long> graph = genCircleGraph();
+		NGraph<Long> graph = genCircleGraph();
 
 		testCircleGraph_common(graph);
-		graph = (NGraph<Long, Long>) graph.clone();
+		graph = (NGraph<Long>) graph.clone();
 		testCircleGraph_common(graph);
 	}
 
-	private void testCircleGraph_common(NGraph<Long, Long> graph) {
+	private void testCircleGraph_common(NGraph<Long> graph) {
 		assertEquals(4, graph.getAllNodes().size());
 
-		List<NNode<Long, Long>> entries = graph.getEntries();
+		List<NNode<Long>> entries = graph.getEntries();
 
-		NNode<Long, Long> prev, first = entries.get(0);
+		NNode<Long> prev, first = entries.get(0);
 
 		assertEquals(1, first.getBackwardLinks().size());
 
@@ -99,18 +99,18 @@ public class NGraphTest extends GraphTestUtil {
 
 	@Test
 	public void test_h_Graph() {
-		NGraph<Long, Long> graph = gen_h_Graph();
+		NGraph<Long> graph = gen_h_Graph();
 
 		test_h_Graph_common(graph);
 		
-		graph = (NGraph<Long, Long>) graph.clone();
+		graph = (NGraph<Long>) graph.clone();
 		test_h_Graph_common(graph);
 	}
 
-	private void test_h_Graph_common(NGraph<Long, Long> graph) {
+	private void test_h_Graph_common(NGraph<Long> graph) {
 		assertEquals(4, graph.getAllNodes().size());
 
-		List<NNode<Long, Long>> entries = graph.getEntries();
+		List<NNode<Long>> entries = graph.getEntries();
 
 		assertEquals(0, graph.getNode(0).getBackwardLinks().size());
 		assertEquals(1, graph.getNode(1).getBackwardLinks().size());

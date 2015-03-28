@@ -3,13 +3,13 @@ package ledom.algorithm.raisingnet;
 public class GraphTestUtil {
 
 
-	protected static NGraph<Long, Long> genSimpleGraph() {
-		NGraph<Long, Long> graph = new NGraph<Long, Long>();
+	protected static NGraph<Long> genSimpleGraph() {
+		NGraph<Long> graph = new NGraph<Long>();
 	
-		NNode<Long, Long> node1 = (NNode<Long, Long>) graph.createNode(1L);
-		NNode<Long, Long> node2 = (NNode<Long, Long>) graph.createNode(2L);
-		NNode<Long, Long> node3 = (NNode<Long, Long>) graph.createNode(3L);
-		NNode<Long, Long> node4 = (NNode<Long, Long>) graph.createNode(4L);
+		NNode<Long> node1 = (NNode<Long>) graph.createNode(1L);
+		NNode<Long> node2 = (NNode<Long>) graph.createNode(2L);
+		NNode<Long> node3 = (NNode<Long>) graph.createNode(3L);
+		NNode<Long> node4 = (NNode<Long>) graph.createNode(4L);
 	
 		graph.createLink(node1, node2, Direction.FORWARD, 10);
 		graph.createLink(node2, node3, Direction.FORWARD, 20);
@@ -20,13 +20,13 @@ public class GraphTestUtil {
 		return graph;
 	}
 
-	protected static NGraph<Long, Long> genCircleGraph() {
-		NGraph<Long, Long> graph = new NGraph<Long, Long>();
+	protected static NGraph<Long> genCircleGraph() {
+		NGraph<Long> graph = new NGraph<Long>();
 	
-		NNode<Long, Long> node1 = (NNode<Long, Long>) graph.createNode(1L);
-		NNode<Long, Long> node2 = (NNode<Long, Long>) graph.createNode(2L);
-		NNode<Long, Long> node3 = (NNode<Long, Long>) graph.createNode(3L);
-		NNode<Long, Long> node4 = (NNode<Long, Long>) graph.createNode(4L);
+		NNode<Long> node1 = (NNode<Long>) graph.createNode(1L);
+		NNode<Long> node2 = (NNode<Long>) graph.createNode(2L);
+		NNode<Long> node3 = (NNode<Long>) graph.createNode(3L);
+		NNode<Long> node4 = (NNode<Long>) graph.createNode(4L);
 	
 		graph.createLink(node1, node2, Direction.FORWARD, 10);
 		graph.createLink(node2, node3, Direction.FORWARD, 20);
@@ -38,13 +38,13 @@ public class GraphTestUtil {
 		return graph;
 	}
 
-	protected static NGraph<Long, Long> gen_h_Graph() {
-		NGraph<Long, Long> graph = new NGraph<Long, Long>();
+	protected static NGraph<Long> gen_h_Graph() {
+		NGraph<Long> graph = new NGraph<Long>();
 	
-		NNode<Long, Long> node1 = (NNode<Long, Long>) graph.createNode(1L);
-		NNode<Long, Long> node2 = (NNode<Long, Long>) graph.createNode(2L);
-		NNode<Long, Long> node3 = (NNode<Long, Long>) graph.createNode(3L);
-		NNode<Long, Long> node4 = (NNode<Long, Long>) graph.createNode(4L);
+		NNode<Long> node1 = (NNode<Long>) graph.createNode(1L);
+		NNode<Long> node2 = (NNode<Long>) graph.createNode(2L);
+		NNode<Long> node3 = (NNode<Long>) graph.createNode(3L);
+		NNode<Long> node4 = (NNode<Long>) graph.createNode(4L);
 	
 		graph.createLink(node1, node2, Direction.FORWARD, 10);
 		graph.createLink(node2, node3, Direction.FORWARD, 20);

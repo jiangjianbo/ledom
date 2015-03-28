@@ -4,90 +4,48 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class NNode<TNodeAttach, TLinkAttach> extends NGraphElem<TNodeAttach, TLinkAttach> {
+public class NNode<TAttach> extends NGraphElem<TAttach> {
 
-	NGraph<TNodeAttach, TLinkAttach> graph;
-	TNodeAttach attachment;
-	int nodeId = -1, flag = 0;
-	int weight = 0;
+	NGraph<TAttach> graph;
 
+	private List<NLink<TAttach>> forwards = new ArrayList<NLink<TAttach>>();
+	private List<NLink<TAttach>> backwards = new ArrayList<NLink<TAttach>>();
 
-	private List<NLink<TNodeAttach, TLinkAttach>> forwards = new ArrayList<NLink<TNodeAttach, TLinkAttach>>();
-	private List<NLink<TNodeAttach, TLinkAttach>> backwards = new ArrayList<NLink<TNodeAttach, TLinkAttach>>();
-
-	public NNode(NGraph<TNodeAttach, TLinkAttach> nGraph) {
+	public NNode(NGraph<TAttach> nGraph) {
 		this(nGraph, 0, null);
 	}
 
-	public NNode(NGraph<TNodeAttach, TLinkAttach> nGraph, TNodeAttach attach) {
+	public NNode(NGraph<TAttach> nGraph, TAttach attach) {
 		this(nGraph, 0, attach);
 	}
 
-	public NNode(NGraph<TNodeAttach, TLinkAttach> nGraph, int weight) {
+	public NNode(NGraph<TAttach> nGraph, int weight) {
 		this(nGraph, weight, null);
 	}
 	
-	public NNode(NGraph<TNodeAttach, TLinkAttach> nGraph, int weight, TNodeAttach attach) {
+	public NNode(NGraph<TAttach> nGraph, int weight, TAttach attach) {
 		graph = nGraph;
-		attachment = attach;
-		this.weight = weight;
+		setAttachment(attach);
+		setWeight(weight);
 	}
 	
-	/**
-	 * 返回快速引用索引
-	 * @return
-	 */
-	public int getNodeId(){
-		return nodeId;
-	}
-	
-	void setNodeId(int nodeId){
-		this.nodeId = nodeId;
-	}
-	
-	public List<NLink<TNodeAttach, TLinkAttach>> getForwardLinks() {
+	public List<NLink<TAttach>> getForwardLinks() {
 		return Collections.unmodifiableList(forwards);
 	}
 
-	public List<NLink<TNodeAttach, TLinkAttach>> getBackwardLinks() {
+	public List<NLink<TAttach>> getBackwardLinks() {
 		return Collections.unmodifiableList(backwards);
 	}
 
-	public void addForwardLink(NLink<TNodeAttach, TLinkAttach> link) {
+	public void addForwardLink(NLink<TAttach> link) {
 		this.forwards.add(link);
 	}
 
-	public void addBackwardLink(NLink<TNodeAttach, TLinkAttach> link) {
+	public void addBackwardLink(NLink<TAttach> link) {
 		this.backwards.add(link);
 	}
 
-	public TNodeAttach getAttachment() {
-		return attachment;
-	}
-
-	public TNodeAttach setAttachment(TNodeAttach newValue) {
-		TNodeAttach old = attachment;
-		attachment = newValue;
-		return old;
-	}
-
-	public int getFlag() {
-		return flag;
-	}
-
-	public void setFlag(int flag) {
-		this.flag = flag;
-	}
-
-	public int getWeight() {
-		return weight;
-	}
-
-	public void setWeight(int weight) {
-		this.weight = weight;
-	}
-
-	public NGraph<TNodeAttach, TLinkAttach> getGraph() {
+	public NGraph<TAttach> getGraph() {
 		return this.graph;
 	}
 

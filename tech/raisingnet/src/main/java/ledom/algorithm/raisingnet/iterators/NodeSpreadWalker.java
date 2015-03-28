@@ -12,8 +12,8 @@ import ledom.algorithm.raisingnet.NGraphElem;
 import ledom.algorithm.raisingnet.NLink;
 import ledom.algorithm.raisingnet.NNode;
 
-public class NodeSpreadWalker<TNodeAttach, TLinkAttach> implements
-		Iterable<NGraphElem<TNodeAttach, TLinkAttach>> {
+public class NodeSpreadWalker<TAttach> implements
+		Iterable<NGraphElem<TAttach>> {
 
 	public static enum WalkOptions {
 		NODE(0), FORWARD_LINK(1), BACKWARD_LINK(2), LINK(FORWARD_LINK,
@@ -54,12 +54,12 @@ public class NodeSpreadWalker<TNodeAttach, TLinkAttach> implements
 		}
 	}
 
-	NGraph<TNodeAttach, TLinkAttach> graph;
-	private Collection<NNode<TNodeAttach, TLinkAttach>> startNodes;
+	NGraph<TAttach> graph;
+	private Collection<NNode<TAttach>> startNodes;
 	private WalkOptions options;
 
-	public NodeSpreadWalker(NGraph<TNodeAttach, TLinkAttach> graph,
-			Collection<NNode<TNodeAttach, TLinkAttach>> startNodes,
+	public NodeSpreadWalker(NGraph<TAttach> graph,
+			Collection<NNode<TAttach>> startNodes,
 			WalkOptions options) {
 		if (graph == null)
 			throw new IllegalArgumentException("graph is null");
@@ -71,19 +71,19 @@ public class NodeSpreadWalker<TNodeAttach, TLinkAttach> implements
 		this.options = options;
 	}
 
-	public NodeSpreadWalker(NGraph<TNodeAttach, TLinkAttach> graph,
+	public NodeSpreadWalker(NGraph<TAttach> graph,
 			WalkOptions options) {
 		this(graph, graph.getEntries(), options);
 	}
 
-	private static class EmptyNodeSpreadIterator<TNodeAttach, TLinkAttach>
-			implements Iterator<NGraphElem<TNodeAttach, TLinkAttach>> {
+	private static class EmptyNodeSpreadIterator<TAttach>
+			implements Iterator<NGraphElem<TAttach>> {
 
 		public boolean hasNext() {
 			return false;
 		}
 
-		public NGraphElem<TNodeAttach, TLinkAttach> next() {
+		public NGraphElem<TAttach> next() {
 			throw new UnsupportedOperationException("empty iterator");
 		}
 
@@ -96,26 +96,26 @@ public class NodeSpreadWalker<TNodeAttach, TLinkAttach> implements
 	 *
 	 */
 	private class NodeSpreadIterator implements
-			Iterator<NGraphElem<TNodeAttach, TLinkAttach>> {
+			Iterator<NGraphElem<TAttach>> {
 
 		/**
 		 * 存放等待遍历自身和子元素的所有元素
 		 */
-		List<NNode<TNodeAttach, TLinkAttach>> walked;
+		List<NNode<TAttach>> walked;
 		// 当前遍历到的元素
 		int currentWalk = 0;
 		// 指示当前元素本身是否已经被遍历，null表示没有
-		NNode<TNodeAttach, TLinkAttach> currentNode = null;
+		NNode<TAttach> currentNode = null;
 		/**
 		 * 当前currentNode出入连接的遍历器
 		 */
-		private Iterator<NLink<TNodeAttach, TLinkAttach>> linkIter = null;
+		private Iterator<NLink<TAttach>> linkIter = null;
 		boolean isForward = false; // 是否对forward遍历？
 
 		private NodeSpreadIterator() {
-			Collection<NNode<TNodeAttach, TLinkAttach>> allNodes = NodeSpreadWalker.this.graph
+			Collection<NNode<TAttach>> allNodes = NodeSpreadWalker.this.graph
 					.getAllNodes();
-			walked = new ArrayList<NNode<TNodeAttach, TLinkAttach>>(allNodes.size());
+			walked = new ArrayList<NNode<TAttach>>(allNodes.size());
 			walked.addAll(startNodes);
 		}
 
@@ -135,7 +135,7 @@ public class NodeSpreadWalker<TNodeAttach, TLinkAttach> implements
 		 * 所有自身遍历完成的节点都放到walked中，然后进行二次遍历
 		 * ，这次遍历的是已有节点的子节点，遍历完毕之后也将节点放入walked，如此循环，直到全部完成。
 		 */
-		public NGraphElem<TNodeAttach, TLinkAttach> next() {
+		public NGraphElem<TAttach> next() {
 			while (currentWalk < walked.size()) {
 				// 当前节点为null，表示尚未遍历currentWalk位置的节点
 				if (currentNode == null) {
@@ -152,8 +152,8 @@ public class NodeSpreadWalker<TNodeAttach, TLinkAttach> implements
 
 				while (linkIter != null) {
 					if (linkIter.hasNext()) { // 如果没有遍历完，先将另外一头的node加入到walked中
-						NLink<TNodeAttach, TLinkAttach> link = linkIter.next();
-						NNode<TNodeAttach, TLinkAttach> node = isForward ? link
+						NLink<TAttach> link = linkIter.next();
+						NNode<TAttach> node = isForward ? link
 								.getDestination() : link.getSource();
 						if (!walked.contains(node)) // 不会重复添加
 							walked.add(node);
@@ -181,11 +181,11 @@ public class NodeSpreadWalker<TNodeAttach, TLinkAttach> implements
 	 * @author jjb
 	 *
 	 */
-	private class NodeSpreadFiltedIterator implements Iterator<NGraphElem<TNodeAttach, TLinkAttach>> {
+	private class NodeSpreadFiltedIterator implements Iterator<NGraphElem<TAttach>> {
 
-		private NodeSpreadWalker<TNodeAttach, TLinkAttach>.NodeSpreadIterator it;
+		private NodeSpreadWalker<TAttach>.NodeSpreadIterator it;
 		boolean foundNext = false;
-		NGraphElem<TNodeAttach,TLinkAttach> currentValue = null;
+		NGraphElem<TAttach> currentValue = null;
 
 		public NodeSpreadFiltedIterator() {
 			it = new NodeSpreadIterator();
@@ -193,7 +193,7 @@ public class NodeSpreadWalker<TNodeAttach, TLinkAttach> implements
 
 		public boolean hasNext() {
 			while(!foundNext && it.hasNext()){
-				NGraphElem<TNodeAttach,TLinkAttach> value = it.next();
+				NGraphElem<TAttach> value = it.next();
 				foundNext = match(value, it.isForwardLink());
 				if( foundNext ){
 					currentValue = value;
@@ -203,7 +203,7 @@ public class NodeSpreadWalker<TNodeAttach, TLinkAttach> implements
 			return foundNext;
 		}
 
-		private boolean match(NGraphElem<TNodeAttach, TLinkAttach> value, boolean isForward) {
+		private boolean match(NGraphElem<TAttach> value, boolean isForward) {
 			if( value instanceof NNode && NodeSpreadWalker.this.options.match(WalkOptions.NODE))
 				return true;
 			if( value instanceof NLink && isForward && NodeSpreadWalker.this.options.match(WalkOptions.FORWARD_LINK))
@@ -214,7 +214,7 @@ public class NodeSpreadWalker<TNodeAttach, TLinkAttach> implements
 			return false;
 		}
 
-		public NGraphElem<TNodeAttach, TLinkAttach> next() {
+		public NGraphElem<TAttach> next() {
 			if( !foundNext )
 				hasNext();
 			if( foundNext ){
@@ -226,8 +226,8 @@ public class NodeSpreadWalker<TNodeAttach, TLinkAttach> implements
 		
 	}
 	
-	public Iterator<NGraphElem<TNodeAttach, TLinkAttach>> iterator() {
-		return this.startNodes.size() == 0 ? new EmptyNodeSpreadIterator<TNodeAttach, TLinkAttach>()
+	public Iterator<NGraphElem<TAttach>> iterator() {
+		return this.startNodes.size() == 0 ? new EmptyNodeSpreadIterator<TAttach>()
 				: new NodeSpreadFiltedIterator();
 	}
 

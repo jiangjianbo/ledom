@@ -27,35 +27,35 @@ public class NodeSpreadWalkerTest extends GraphTestUtil {
 
 	@Test
 	public void testSimpleAll() {
-		NGraph<Long, Long> graph = genSimpleGraph();
+		NGraph<Long> graph = genSimpleGraph();
 		
-		NodeSpreadWalker<Long, Long> walk;
+		NodeSpreadWalker<Long> walk;
 		
-		walk = new NodeSpreadWalker<Long, Long>(graph, WalkOptions.ALL);
-		Iterator<NGraphElem<Long, Long>> it = walk.iterator();
-		Iterator<NNode<Long, Long>> nodeIt = graph.getAllNodes().iterator();
-		Iterator<NLink<Long, Long>> linkIt = graph.getAllLinks().iterator();
-		NNode<Long, Long> node;
-		NLink<Long, Long> link, linkprev;
+		walk = new NodeSpreadWalker<Long>(graph, WalkOptions.ALL);
+		Iterator<NGraphElem<Long>> it = walk.iterator();
+		Iterator<NNode<Long>> nodeIt = graph.getAllNodes().iterator();
+		Iterator<NLink<Long>> linkIt = graph.getAllLinks().iterator();
+		NNode<Long> node;
+		NLink<Long> link, linkprev;
 		
 		assertEquals(true, it.hasNext());
 		assertSame(node= nodeIt.next(),it.next()); // node1
 		assertEquals(1L, node.getAttachment().longValue());
 		assertSame(link = linkIt.next(), it.next()); // link1
-		assertEquals(10L, link.getDistance());
+		assertEquals(10L, link.getWeight());
 		
 		assertSame(node= nodeIt.next(),it.next()); // node2
 		assertEquals(2L, node.getAttachment().longValue());
 		linkprev = link;
 		assertSame(link = linkIt.next(), it.next()); // link2
-		assertEquals(20L, link.getDistance());
+		assertEquals(20L, link.getWeight());
 		assertSame(linkprev, it.next()); // link1
 		
 		assertSame(node= nodeIt.next(),it.next()); // node3
 		assertEquals(3L, node.getAttachment().longValue());
 		linkprev = link;
 		assertSame(link = linkIt.next(), it.next()); // link3
-		assertEquals(30L, link.getDistance());
+		assertEquals(30L, link.getWeight());
 		assertSame(linkprev, it.next()); // link2
 		
 		assertSame(node= nodeIt.next(),it.next()); // node4
@@ -68,14 +68,14 @@ public class NodeSpreadWalkerTest extends GraphTestUtil {
 
 	@Test
 	public void testSimpleNode() {
-		NGraph<Long, Long> graph = genSimpleGraph();
+		NGraph<Long> graph = genSimpleGraph();
 		
-		NodeSpreadWalker<Long, Long> walk;
+		NodeSpreadWalker<Long> walk;
 		
-		walk = new NodeSpreadWalker<Long, Long>(graph, WalkOptions.NODE);
-		Iterator<NGraphElem<Long, Long>> it = walk.iterator();
-		Iterator<NNode<Long, Long>> nodeIt = graph.getAllNodes().iterator();
-		NNode<Long, Long> node;
+		walk = new NodeSpreadWalker<Long>(graph, WalkOptions.NODE);
+		Iterator<NGraphElem<Long>> it = walk.iterator();
+		Iterator<NNode<Long>> nodeIt = graph.getAllNodes().iterator();
+		NNode<Long> node;
 		
 		assertEquals(true, it.hasNext());
 		assertSame(node= nodeIt.next(),it.next()); // node1
@@ -95,74 +95,74 @@ public class NodeSpreadWalkerTest extends GraphTestUtil {
 
 	@Test
 	public void testSimpleForward() {
-		NGraph<Long, Long> graph = genSimpleGraph();
+		NGraph<Long> graph = genSimpleGraph();
 		
-		NodeSpreadWalker<Long, Long> walk;
+		NodeSpreadWalker<Long> walk;
 		
-		walk = new NodeSpreadWalker<Long, Long>(graph, WalkOptions.FORWARD_LINK);
-		Iterator<NGraphElem<Long, Long>> it = walk.iterator();
-		Iterator<NLink<Long, Long>> linkIt = graph.getAllLinks().iterator();
-		NLink<Long, Long> link;
+		walk = new NodeSpreadWalker<Long>(graph, WalkOptions.FORWARD_LINK);
+		Iterator<NGraphElem<Long>> it = walk.iterator();
+		Iterator<NLink<Long>> linkIt = graph.getAllLinks().iterator();
+		NLink<Long> link;
 		
 		assertEquals(true, it.hasNext());
 		assertSame(link = linkIt.next(), it.next()); // link1
-		assertEquals(10L, link.getDistance());
+		assertEquals(10L, link.getWeight());
 		
 		assertSame(link = linkIt.next(), it.next()); // link2
-		assertEquals(20L, link.getDistance());
+		assertEquals(20L, link.getWeight());
 		
 		assertSame(link = linkIt.next(), it.next()); // link3
-		assertEquals(30L, link.getDistance());
+		assertEquals(30L, link.getWeight());
 		
 		assertEquals(false, it.hasNext());
 	}
 
 	@Test
 	public void testSimpleBackward() {
-		NGraph<Long, Long> graph = genSimpleGraph();
+		NGraph<Long> graph = genSimpleGraph();
 		
-		NodeSpreadWalker<Long, Long> walk;
+		NodeSpreadWalker<Long> walk;
 		
-		walk = new NodeSpreadWalker<Long, Long>(graph, WalkOptions.BACKWARD_LINK);
-		Iterator<NGraphElem<Long, Long>> it = walk.iterator();
-		Iterator<NLink<Long, Long>> linkIt = graph.getAllLinks().iterator();
-		NLink<Long, Long> link;
+		walk = new NodeSpreadWalker<Long>(graph, WalkOptions.BACKWARD_LINK);
+		Iterator<NGraphElem<Long>> it = walk.iterator();
+		Iterator<NLink<Long>> linkIt = graph.getAllLinks().iterator();
+		NLink<Long> link;
 		
 		assertEquals(true, it.hasNext());
 		assertSame(link = linkIt.next(), it.next()); // link1
-		assertEquals(10L, link.getDistance());
+		assertEquals(10L, link.getWeight());
 		
 		assertSame(link = linkIt.next(), it.next()); // link2
-		assertEquals(20L, link.getDistance());
+		assertEquals(20L, link.getWeight());
 		
 		assertSame(link = linkIt.next(), it.next()); // link3
-		assertEquals(30L, link.getDistance());
+		assertEquals(30L, link.getWeight());
 		
 		assertEquals(false, it.hasNext());
 	}
 	
 	@Test
 	public void testSimpleLink() {
-		NGraph<Long, Long> graph = genSimpleGraph();
+		NGraph<Long> graph = genSimpleGraph();
 		
-		NodeSpreadWalker<Long, Long> walk;
+		NodeSpreadWalker<Long> walk;
 		
-		walk = new NodeSpreadWalker<Long, Long>(graph, WalkOptions.LINK);
-		Iterator<NGraphElem<Long, Long>> it = walk.iterator();
-		Iterator<NLink<Long, Long>> linkIt = graph.getAllLinks().iterator();
-		NLink<Long, Long> link, linkprev;
+		walk = new NodeSpreadWalker<Long>(graph, WalkOptions.LINK);
+		Iterator<NGraphElem<Long>> it = walk.iterator();
+		Iterator<NLink<Long>> linkIt = graph.getAllLinks().iterator();
+		NLink<Long> link, linkprev;
 		
 		assertSame(link = linkIt.next(), it.next()); // link1
-		assertEquals(10L, link.getDistance());
+		assertEquals(10L, link.getWeight());
 		
 		linkprev = link;
 		assertSame(link = linkIt.next(), it.next()); // link2
-		assertEquals(20L, link.getDistance());
+		assertEquals(20L, link.getWeight());
 		assertSame(linkprev, it.next()); // link1
 		
 		linkprev = link;
 		assertSame(link = linkIt.next(), it.next()); // link3
-		assertEquals(30L, link.getDistance());
+		assertEquals(30L, link.getWeight());
 		assertSame(linkprev, it.next()); // link2
 		
 		linkprev = link;
