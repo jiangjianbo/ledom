@@ -6,47 +6,31 @@ import java.util.List;
 
 public class NNode<TAttach> extends NGraphElem<TAttach> {
 
-	NGraph<TAttach> graph;
+	List<NLink<TAttach>> outputs = new ArrayList<NLink<TAttach>>();
+	List<NLink<TAttach>> inputs = new ArrayList<NLink<TAttach>>();
 
-	private List<NLink<TAttach>> forwards = new ArrayList<NLink<TAttach>>();
-	private List<NLink<TAttach>> backwards = new ArrayList<NLink<TAttach>>();
 
-	public NNode(NGraph<TAttach> nGraph) {
-		this(nGraph, 0, null);
-	}
-
-	public NNode(NGraph<TAttach> nGraph, TAttach attach) {
-		this(nGraph, 0, attach);
-	}
-
-	public NNode(NGraph<TAttach> nGraph, int weight) {
-		this(nGraph, weight, null);
-	}
-	
-	public NNode(NGraph<TAttach> nGraph, int weight, TAttach attach) {
-		graph = nGraph;
+	public NNode(NGraph<TAttach> nGraph, int id, TAttach attach) {
+		super(nGraph, id);
+		
 		setAttachment(attach);
-		setWeight(weight);
 	}
 	
-	public List<NLink<TAttach>> getForwardLinks() {
-		return Collections.unmodifiableList(forwards);
+	public List<NLink<TAttach>> getOutputLinks() {
+		return Collections.unmodifiableList(outputs);
 	}
 
-	public List<NLink<TAttach>> getBackwardLinks() {
-		return Collections.unmodifiableList(backwards);
+	public List<NLink<TAttach>> getInputLinks() {
+		return Collections.unmodifiableList(inputs);
 	}
 
-	public void addForwardLink(NLink<TAttach> link) {
-		this.forwards.add(link);
+	public void addOutputLink(NLink<TAttach> link) {
+		this.outputs.add(link);
 	}
 
-	public void addBackwardLink(NLink<TAttach> link) {
-		this.backwards.add(link);
+	public void addInputLink(NLink<TAttach> link) {
+		this.inputs.add(link);
 	}
 
-	public NGraph<TAttach> getGraph() {
-		return this.graph;
-	}
 
 }

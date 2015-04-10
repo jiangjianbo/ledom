@@ -45,27 +45,27 @@ public class NGraphTest extends GraphTestUtil {
 		NNode<Long> next, first = entries.iterator().next();
 
 		assertEquals(first.getAttachment().longValue(), 1);
-		assertEquals(1, first.getForwardLinks().size());
+		assertEquals(1, first.getOutputLinks().size());
 
-		next = first.getForwardLinks().get(0).getDestination();
+		next = first.getOutputLinks().get(0).getDestination();
 		assertEquals(next.getAttachment().longValue(), 2);
-		assertEquals(1, next.getForwardLinks().size());
-		assertEquals(1, next.getBackwardLinks().size());
-		assertSame(first.getForwardLinks().get(0), next.getBackwardLinks().get(0));
+		assertEquals(1, next.getOutputLinks().size());
+		assertEquals(1, next.getInputLinks().size());
+		assertSame(first.getOutputLinks().get(0), next.getInputLinks().get(0));
 
 		first = next;
-		next = first.getForwardLinks().get(0).getDestination();
+		next = first.getOutputLinks().get(0).getDestination();
 		assertEquals(next.getAttachment().longValue(), 3);
-		assertEquals(1, next.getForwardLinks().size());
-		assertEquals(1, next.getBackwardLinks().size());
-		assertSame(first.getForwardLinks().get(0), next.getBackwardLinks().get(0));
+		assertEquals(1, next.getOutputLinks().size());
+		assertEquals(1, next.getInputLinks().size());
+		assertSame(first.getOutputLinks().get(0), next.getInputLinks().get(0));
 
 		first = next;
-		next = first.getForwardLinks().get(0).getDestination();
+		next = first.getOutputLinks().get(0).getDestination();
 		assertEquals(next.getAttachment().longValue(), 4);
-		assertEquals(0, next.getForwardLinks().size());
-		assertEquals(1, next.getBackwardLinks().size());
-		assertSame(first.getForwardLinks().get(0), next.getBackwardLinks().get(0));
+		assertEquals(0, next.getOutputLinks().size());
+		assertEquals(1, next.getInputLinks().size());
+		assertSame(first.getOutputLinks().get(0), next.getInputLinks().get(0));
 	}
 
 	
@@ -85,14 +85,14 @@ public class NGraphTest extends GraphTestUtil {
 
 		NNode<Long> prev, first = entries.get(0);
 
-		assertEquals(1, first.getBackwardLinks().size());
+		assertEquals(1, first.getInputLinks().size());
 
-		prev = first.getBackwardLinks().get(0).getSource();
+		prev = first.getInputLinks().get(0).getSource();
 		assertEquals(prev.getAttachment().longValue(), 4);
-		assertEquals(1, prev.getForwardLinks().size());
-		assertEquals(1, prev.getBackwardLinks().size());
-		assertSame(prev.getForwardLinks().get(0), first
-				.getBackwardLinks().get(0));
+		assertEquals(1, prev.getOutputLinks().size());
+		assertEquals(1, prev.getInputLinks().size());
+		assertSame(prev.getOutputLinks().get(0), first
+				.getInputLinks().get(0));
 	}
 	
 	
@@ -112,19 +112,19 @@ public class NGraphTest extends GraphTestUtil {
 
 		List<NNode<Long>> entries = graph.getEntries();
 
-		assertEquals(0, graph.getNode(0).getBackwardLinks().size());
-		assertEquals(1, graph.getNode(1).getBackwardLinks().size());
-		assertEquals(1, graph.getNode(2).getBackwardLinks().size());
-		assertEquals(1, graph.getNode(3).getBackwardLinks().size());
+		assertEquals(0, graph.getNode(0).getInputLinks().size());
+		assertEquals(1, graph.getNode(1).getInputLinks().size());
+		assertEquals(1, graph.getNode(2).getInputLinks().size());
+		assertEquals(1, graph.getNode(3).getInputLinks().size());
 
-		assertEquals(1, graph.getNode(0).getForwardLinks().size());
-		assertEquals(2, graph.getNode(1).getForwardLinks().size());
-		assertEquals(0, graph.getNode(2).getForwardLinks().size());
-		assertEquals(0, graph.getNode(3).getForwardLinks().size());
+		assertEquals(1, graph.getNode(0).getOutputLinks().size());
+		assertEquals(2, graph.getNode(1).getOutputLinks().size());
+		assertEquals(0, graph.getNode(2).getOutputLinks().size());
+		assertEquals(0, graph.getNode(3).getOutputLinks().size());
 
-		assertSame(graph.getNode(0).getForwardLinks().get(0), graph.getNode(1).getBackwardLinks().get(0));
-		assertSame(graph.getNode(1).getForwardLinks().get(0), graph.getNode(2).getBackwardLinks().get(0));
-		assertSame(graph.getNode(1).getForwardLinks().get(1), graph.getNode(3).getBackwardLinks().get(0));
+		assertSame(graph.getNode(0).getOutputLinks().get(0), graph.getNode(1).getInputLinks().get(0));
+		assertSame(graph.getNode(1).getOutputLinks().get(0), graph.getNode(2).getInputLinks().get(0));
+		assertSame(graph.getNode(1).getOutputLinks().get(1), graph.getNode(3).getInputLinks().get(0));
 	}
 		
 	

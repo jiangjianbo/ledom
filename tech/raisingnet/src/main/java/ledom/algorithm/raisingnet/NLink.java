@@ -5,25 +5,24 @@ public class NLink<TAttach> extends NGraphElem<TAttach> {
 	private NNode<TAttach> source;
 	private NNode<TAttach> destination;
 	private Direction direction;
-	public NLink(NNode<TAttach> from,
+	
+	NLink(NGraph<TAttach> graph, int id, NNode<TAttach> from,
 			NNode<TAttach> to, Direction dir,
-			int distance, TAttach attach) {
+			int distance) {
+		super(graph, id);
+		
 		this.source = from;
 		this.destination = to;
 		this.direction = dir;
 		setWeight(distance);
-		setAttachment(attach);
 	}
 
-	public NLink(NNode<TAttach> from,
+	NLink(NGraph<TAttach> graph, int id, NNode<TAttach> from,
 			NNode<TAttach> to, Direction dir,
-			int distance) {
-		this(from, to, dir, distance, null);
-	}
-
-	public NLink(NNode<TAttach> from,
-			NNode<TAttach> to, Direction dir) {
-		this(from, to, dir, 0, null);
+			int distance, TAttach attachment) {
+		this(graph, id, from, to, dir, distance);
+		
+		setAttachment(attachment);
 	}
 
 	public NNode<TAttach> getSource() {

@@ -2,9 +2,19 @@ package ledom.algorithm.raisingnet;
 
 public class NGraphElem<TAttach> {
 
+	private NGraph<TAttach> graph;
 	TAttach attachment = null;
-	private int id = -1, weight = 0, temp = 0, flag = 0;
+	private int id = -1, weight = 0, flag = 0;
 
+	public NGraphElem(NGraph<TAttach> graph, int id) {
+		this.graph = graph;
+		this.id = id;
+	}
+
+	public NGraph<TAttach> getGraph() {
+		return graph;
+	}
+	
 	public int getFlag() {
 		return flag;
 	}
@@ -12,7 +22,15 @@ public class NGraphElem<TAttach> {
 	public void setFlag(int flag) {
 		this.flag = flag;
 	}
-	
+
+	public<T> T getFlag(String flagType) {
+		return graph.getFlag(flagType, id);
+	}
+
+	public<T> void setFlag(String flagType, T flag) {
+		graph.setFlag(flagType, id, flag);
+	}
+
 	public int getWeight() {
 		return weight;
 	}
@@ -31,18 +49,6 @@ public class NGraphElem<TAttach> {
 
 	public int getId() {
 		return id;
-	}
-	
-	protected void setId(int id) {
-		this.id = id;
-	}
-
-	public int getTemp() {
-		return temp ;
-	}
-
-	public void setTemp(int temp) {
-		this.temp = temp;
 	}
 
 }

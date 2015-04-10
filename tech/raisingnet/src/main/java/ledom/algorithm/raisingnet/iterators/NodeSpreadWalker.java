@@ -146,7 +146,7 @@ public class NodeSpreadWalker<TAttach> implements
 				}
 				// 遍历currentNode节点的link，先遍历forward link
 				if (linkIter == null) {
-					linkIter = currentNode.getForwardLinks().iterator();
+					linkIter = currentNode.getOutputLinks().iterator();
 					isForward = true;
 				}
 
@@ -161,7 +161,7 @@ public class NodeSpreadWalker<TAttach> implements
 					}
 					// 如果link遍历完毕了
 					if (isForward) { // 如果backward还没完成的话
-						linkIter = currentNode.getBackwardLinks().iterator();
+						linkIter = currentNode.getInputLinks().iterator();
 						isForward = false;
 					} else
 						linkIter = null; // 重置linkIter为null，表示link全部遍历完成
